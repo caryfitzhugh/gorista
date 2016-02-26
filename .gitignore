@@ -24,3 +24,6 @@ _testmain.go
 *.prof
 gorista
 *.swp
+aws elasticbeanstalk update-application-version --application-name gorista --version-label v1
+.*.swn
+.*.swo

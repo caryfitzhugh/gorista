@@ -1,3 +1,33 @@
 sudo docker build -t gorista -f Dockerfile.scratch .
 sudo docker run -it -p 127.0.0.1:8080:8080 gorista
-sudo docker build -t gorista -f Dockerfile.scratch .
+sudo docker build -t gorista -f Dockerfile .
+aws ecr get-login --region us-east-1
+sudo docker tag gorista:latest 848735772674.dkr.ecr.us-east-1.amazonaws.com/corista:latest
+docker push848735772674.dkr.ecr.us-east-1.amazonaws.com/corista:latest
+
+Now in EB, create the system.
+t2.micro
+docker.
+create the EB environment.
+
+Don't use the -f and latest. Use a version (or git hash) - or timestamp.
+
+Add a Dockerrun.aws.json file
+
+https://blogs.aws.amazon.com/application-management/blog/tag/Docker
+
+Zip it:
+zip release.zip Dockerrun.aws.json
+
+Upload to S3
+Create application bundle
+
+aws cp release.zip s3://deploys.corista.com/
+
+aws elasticbeanstalk create-application-version --application-name gorista --version-label v1 --source-bundle S3Bucket=deploys.corista.com,S3Key=release.zip
+
+then update the application version
+aws elasticbeanstalk update-application-version -a gorista -l v1
+
+http://www.incrediblemolk.com/make-custom-docker-app-logs-viewable-in-the-aws-elastic-beanstalk-console/
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o gorista .
