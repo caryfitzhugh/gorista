@@ -1,6 +1,6 @@
 # Gorista
 
-Gorilla webservices for Corista.
+Gorilla webservices....
 
 Trying out some concepts for using Gorilla + golang for websockets.
 
