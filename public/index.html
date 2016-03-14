@@ -1,25 +1,29 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<script>
-  var serversocket = new WebSocket("ws://" + window.location.host +"/websocket");
+  <script src="./vendor/ractive/ractive.js"></script>
+  <script src="./vendor/leaflet/leaflet.js"></script>
+  <script src="./js/client.js"></script>
 
-  serversocket.onopen = function() {
-          serversocket.send("Connection init");
-  }
+  <script>
+    var serversocket = new WebSocket("ws://" + window.location.host +"/websocket");
 
-  // Write message on receive
-  serversocket.onmessage = function(e) {
-          document.getElementById('comms').innerHTML += "Received: " + e.data + "<br>";
-  };
+    serversocket.onopen = function() {
+            serversocket.send("Connection init");
+    }
 
-  function senddata() {
-          var data = document.getElementById('sendtext').value;
-          serversocket.send(data);
-          document.getElementById('comms').innerHTML += "Sent: " + data + "<br>";
-  }
+    // Write message on receive
+    serversocket.onmessage = function(e) {
+            document.getElementById('comms').innerHTML += "Received: " + e.data + "<br>";
+    };
 
-</script>
+    function senddata() {
+            var data = document.getElementById('sendtext').value;
+            serversocket.send(data);
+            document.getElementById('comms').innerHTML += "Sent: " + data + "<br>";
+    }
+
+  </script>
 </head>
 
 <body>
